@@ -1,0 +1,6 @@
+---
+- name: Install netatalk from repository
+  apt:
+    name: netatalk
+    update_cache: true
+    state: present

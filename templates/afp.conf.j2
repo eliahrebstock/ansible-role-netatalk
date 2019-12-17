@@ -1,0 +1,38 @@
+; {{ ansible_managed }}
+;
+; Netatalk 3.x configuration file
+;
+
+[Global]
+{{ netatalk_global_configuration }}
+
+{% if netatalk_homes_enabled %}
+[Homes]
+path = {{ netatalk_homes_path }}
+basedir regex = {{ netatalk_homes_basedir_regex }}
+
+{{ netatalk_homes_configuration }}
+{% endif %}
+
+{% for shared_volume in netatalk_shared_volumes %}
+[{{ shared_volume.name }}]
+path = {{ shared_volume.path }}
+
+{% if shared_volume.hosts_allowed is defined %}
+hosts allow = {% for allowed_host in shared_volume.hosts_allowed %}{{ allowed_host }} {% endfor %}
+{% endif %}
+
+{% if shared_volume.hosts_denied is defined %}
+hosts allow = {% for denied_host in shared_volume.hosts_denied %}{{ denied_host }} {% endfor %}
+{% endif %}
+
+{% if shared_volume.valid_users is defined %}
+valid users = {% for user in shared_volume.valid_users %}"{{ user }}" {% endfor %}
+{% endif %}
+
+{% if shared_volume.invalid_users is defined %}
+invalid users = {% for user in shared_volume.invaid_users %}"{{ user }}" {% endfor %}
+{% endif %}
+
+{{ shared_volume.extra_configuration|default("") }}
+{% endfor %}

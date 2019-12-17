@@ -1,0 +1,3 @@
+---
+netatalk_install_from_repo: true
+afp_conf_path: /etc/netatalk/afp.conf

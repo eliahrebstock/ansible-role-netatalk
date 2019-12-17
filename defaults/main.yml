@@ -1,0 +1,7 @@
+---
+netatalk_shared_volumes: []
+netatalk_homes_enabled: false
+netatalk_homes_path: "afp-data"
+netatalk_homes_basedir_regex: "/home"
+netatalk_global_configuration: ""
+netatalk_homes_configuration: ""
