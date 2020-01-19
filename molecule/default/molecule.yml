@@ -1,0 +1,26 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    image: debian:buster
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  inventory:
+    host_vars:
+      instance:
+        netatalk_shared_volumes:
+          - name: root
+            path: /etc
+            valid_users:
+              - root
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
